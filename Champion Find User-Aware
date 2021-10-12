@@ -1,0 +1,118 @@
+*Tech Writer Note: I approached this activity from a user-based perspective, with the primary goal being to summarize the content for the programmer and point out any potential issues the user may encounter as a result of this code*
+
+
+Find Champion
+===================================
+The **Find Champion** function allows a user to retrieve a data entry for a champion based on a number of input parameters. 
+
+These input paramters can be the exact name of the champion, or based on either gameplay or in-game lore data. This search system can  be a helpful tool for users looking to find new champions to play, or those searching for thematically-linked champions.
+
+
+Search Parameters 
+-----------------------------------
+Champion data for each entry in the system must include the name, role, and origin of the champion.
+
+*Note the "origin" of a champion can refer to either the location in Runeterra the champion originates from OR the champion's species.*
+
+The examples given below show the format for these champion entries.
+
+```python
+
+champion_data = [
+
+ {
+
+   'name': 'ahri',
+
+   'role':  'mid lane',
+
+   'origin': 'vastaya'
+
+ },
+
+ {
+
+   'name': 'teemo',
+
+   'role': 'top lane',
+
+   'origin': 'bandle city'
+
+ },
+
+ {
+
+   'name':'gangplank',
+
+   'role': 'top lane',
+
+   'origin': 'bilgewater'
+
+ },
+
+ {
+
+   'name': 'sona',
+
+   'role': 'support',
+
+   'origin': 'ionia'
+
+ },
+
+ {
+
+   'name': 'miss fortune',
+
+   'role': 'marksman',
+
+   'origin': 'bilgewater'
+
+ }
+
+]
+
+```
+
+
+Champion Search Mechanism
+------------------------------------
+This is the key operation that powers the champion search system using the search parameters described in the section above. 
+
+Entering a champion's **Name** will retrieve the entry for that exact champion. 
+
+Entering a champion's **Role** or **Origin** will return a list of champions that match that search term.
+
+*Note that unless a name or parameter is spelled correctly, the search will not return any results. For example, if "teem" is entered instead of "teemo," no results will be returned.*
+
+```python
+
+def find_champion(name=None, role=None, origin=None):
+
+ champion_suggestions = []
+
+ for champ in champion_data:
+
+   if name:
+
+     if champ['name'] == name:
+
+       return [champ]
+
+   if role:
+
+     if champ['role'] != role:
+
+       continue
+
+   if origin:
+
+     if champ['origin'] != origin:
+
+       continue
+
+   champion_suggestions.append(champ)
+
+ return champion_suggestions
+
+```
